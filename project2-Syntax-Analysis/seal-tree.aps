@@ -1,0 +1,132 @@
+-- A (typed) tree language for SEAL abstract syntax trees
+
+module SEAL[] begin
+  type Symbol;
+  type StructName;
+  type Boolean;
+
+  phylum Program;
+
+  phylum Decl;
+  phylum Decls = LIST[Decl];
+
+  phylum VariableDecl;
+
+  phylum Variable;
+  phylum Variables = LIST[Variable];
+
+  Phylum CallDecl;
+
+  Phylum StmtBlock;
+
+  Phylum Stmt;
+  phylum Stmts = LIST[Stmt];
+
+  Phylum IfStmt;
+
+  Phylum WhileStmt;
+
+  Phylum ForStmt;
+
+  Phylum ReturnStmt;
+
+  Phylum ContinueStmt;
+
+  Phylum BreakStmt;
+
+  Phylum Expr;
+  phylum Exprs = LIST[Expr];
+
+  Phylum Call;
+  phylum Calls = LIST[Call];
+
+  Phylum Actual;
+
+  Phylum Constant;
+
+  -- Program:
+
+  constructor program(decls : Decls;) : Program;
+  
+  -- Decls:
+
+  constructor variableDecl(v : Variable) : VariableDecl;
+
+  constructor variable(obj: Symbol; tp : Symbol) : Variable;
+
+  constructor callDecl(name: Symbol; parameters: Variables; returnType: Symbol ; body: StmtBlock): CallDecl;
+
+  -- statement
+
+  constructor stmtBlock(vars: VariableDecls; body: Stmts) : StmtBlock;
+
+  constructor ifstmt(condition: Expr; thenexpr: StmtBlock; elseexpr: StmtBlock) IfStatement;
+
+  constructor whilestmt(condition: Expr; body: StmtBlock): WhileStatement;
+
+  constructor forstmt(initexpr: Expr; condition:Expr; loopact: Expr; body: StmtBlock) ForStatement;
+
+  constructor returnstmt(value: Expr): ReturnStmt;
+
+  constructor continuestmt(): ContinueStatement;
+
+  constructor breakstmt(): BreakStatement;
+
+  -- Expr
+
+  constructor assign(lvalue: Symbol ; exp:Expr):Expr;
+
+  constructor const_int(value: Symbol): Expr;
+
+  constructor const_string(value: Symbol): Expr;
+
+  constructor const_bool(value: Symbol): Expr;
+
+  constructor const_float(value: Symbol): Expr;
+
+  constructor object(value: Symbol): Expr;
+
+  constructor add(a1: Expr; a2: Expr): Expr;
+
+  constructor minus(a1: Expr; a2:Expr):Expr;
+
+  constructor multi(a1: Expr; a2:Expr):Expr;
+
+  constructor divide(a1:Expr; a2:Expr):Expr;
+
+  constructor mod(a1:Expr; a2:Expr):Expr;
+
+  constructor neg(a1:Expr):Expr;
+
+  constructor lt(a1:Expr; a2:Expr):Expr;
+
+  constructor le(a1:Expr; a2:Expr):Expr;
+
+  constructor equ(a1:Expr; a2:Expr):Expr;
+
+  constructor neq(a1:Expr; a2:Expr):Expr;
+
+  constructor ge(a1:Expr; a2:Expr):Expr;
+
+  constructor gt(a1:Expr; a2:Expr):Expr;
+
+  constructor and_(a1:Expr; a2:Expr):Expr;
+
+  constructor or_(a1:Expr; a2:Expr):Expr;
+
+  constructor not_(a1:Expr):Expr;
+
+  constructor bitnot(a1:Expr):Expr;
+
+  constructor bitand_(a1:Expr; a2:Expr):Expr;
+
+  constructor bitor_(a1:Expr; a2:Expr):Expr;
+
+  constructor xor_(a1:Expr; a2:Expr):Expr;
+
+  constructor call(name: Symbol; paras: Actuals): Call;
+
+  constructor actual(expr: Expr): Actual;
+
+  constructor no_expr(): Expr;  
+end;
